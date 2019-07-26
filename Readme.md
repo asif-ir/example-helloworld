@@ -16,15 +16,30 @@ Open http://localhost:3322
 
 ## Tutorial Steps
 
-### Step 0
+### Start Over
 
 When you checkout the example you already see a very basic flamingo module.
 
 ```bash
-git checkout step0
+git checkout start-over
 ```
 
 Here are some details for the files present in your project ( `flamingo.me/example-helloworld` )
+
+#### Folder structure
+First, we start with some basic information on the folder structure:
+
+* config/
+    * Here we ﬁnd our configuration and routing files
+* src/
+    * Source code for the project
+* templates/
+    * Templates for Go Templates
+* go.mod
+    * the projects dependencies
+* main.go
+    * Entry point for our project
+
 
 The `main.go` file looks like this
 
@@ -67,6 +82,8 @@ Also we need a few default templates, they live in `templates/error`:
 
 We need this setup to make the `gotemplate` Module not panic due to missing error-templates at all.
 
+The config file `config/config.yml` is nearly empty for now. We just enable Flamingo's debug mode.
+
 Now we are ready and can already start with `go run main.go`!
 
 You can start the server with `go run main.go serve` but you'll be stuck with 404 errors for now. (Obviously, since we do not have any routes registered.)
@@ -75,34 +92,20 @@ The flamingo default app runs on port 3322, so go and visit http://localhost:332
 
 You'll see log-output like
 ```
-2017/10/16 20:37:24 404 | GET      |       962.792µs |     53 byte | / | Error: action for method "GET" not found and no any fallback
+2019-07-26T13:42:10.073+0200    INFO    requestlogger/logger.go:131     GET / 404: 42b in 5.788304ms (Error: action for method "GET" not found and no any fallback)     {"area": "root", "traceID": "7158d0b6f0214ac018ccd0b6241da2f3", "spanID": "f16b1510928ff8df", "method": "GET", "path": "/", "client_ip": "[::1]:52572", "businessId": "", "accesslog": 1, "response_code": 404, "response_time": 0.005788304, "referer": ""}
 ```
 
 In Step 1, we will make sure that the 404 error won't stay for long.
 
 ### Step 1
 
-You can either start with your current code or you can just checkout the branch "step0" with
+You can either start with your current code or you can just checkout the branch "start-over" with
 
 ```bash
-git checkout step0
+git checkout start-over
 ```
 
-#### Folder structure
-First, we start with some basic information on the folder structure:
-
-* conﬁg/
-    * Here we ﬁnd our conﬁguration and routing ﬁles
-* src/
-    * Source code for the project
-* templates/
-    * Templates for Go Templates
-* go.mod
-    * the projects dependencies
-* main.go
-    * Entry point for our project
-
-Now we create a template to be shown when visiting the page.
+At first, we create a template to be shown when visiting the page.
 Create a template file called "index.html" in the "templates" folder with basic content:
 ```html
 <html>
